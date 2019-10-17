@@ -918,6 +918,99 @@ class ViewerModel(KeymapMixin):
         self.add_layer(layer)
         return layer
 
+    def add_text(
+        self,
+        data=None,
+        *,
+        color='black',
+        bold=False,
+        italic=False,
+        font_size=12,
+        annotations=None,
+        rotation=None,
+        anchor_x='center',
+        anchor_y='center',
+        render_method='cpu',
+        n_dimensional=False,
+        name=None,
+        metadata=None,
+        scale=None,
+        translate=None,
+        opacity=1,
+        blending='translucent',
+        visible=True,
+    ):
+        """Add a text layer to the layers list.
+
+        Parameters
+        ----------
+        data : array (N, D)
+            List of strings to display as text
+        color : str
+            Font color for the text
+        bold : bool
+            Font is bold if set to true.
+        italic : bool
+            Font is italic if set to true
+        font : str
+            Font to use
+        font_size : float
+            Font size in points
+        position : List[(tuple)]
+            Position of the text
+        rotation : float
+            Angle of the text in degrees (counter clockwise is positive)
+        anchor_x : str
+            Alignment of the text in the x-axis
+        anchor_y : str
+            Alignment of the text in the y-axis
+        render_method : str
+            Method of rendering. Should be either 'cpu' or 'gpu'
+        name : str
+            Name of the layer.
+        metadata : dict
+            Layer metadata.
+        scale : tuple of float
+            Scale factors for the layer.
+        translate : tuple of float
+            Translation values for the layer.
+        opacity : float
+            Opacity of the layer visual, between 0.0 and 1.0.
+        blending : str
+            One of a list of preset blending modes that determines how RGB and
+            alpha values of the layer visual get mixed. Allowed values are
+            {'opaque', 'translucent', and 'additive'}.
+        visible : bool
+            Whether the layer visual is currently being displayed.
+
+        Returns
+        -------
+        layer : :class:`napari.layers.Text`
+            The newly-created surface layer.
+        """
+        layer = layers.Text(
+            data=data,
+            color=color,
+            bold=bold,
+            italic=italic,
+            font_size=font_size,
+            annotations=annotations,
+            rotation=rotation,
+            anchor_x=anchor_x,
+            anchor_y=anchor_y,
+            render_method=render_method,
+            n_dimensional=n_dimensional,
+            name=name,
+            metadata=metadata,
+            scale=scale,
+            translate=translate,
+            opacity=opacity,
+            blending=blending,
+            visible=visible,
+        )
+        self.add_layer(layer)
+        return layer
+
     def add_vectors(
         self,
         data,
