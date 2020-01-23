@@ -448,7 +448,8 @@ class Points(Layer):
                 ind = list(self._indices_view).index(c)
                 selected.append(ind)
         self._selected_view = selected
-        self._selected_box = self.interaction_box(self._selected_view)
+        if self.dims.ndisplay == 2:
+            self._selected_box = self.interaction_box(self._selected_view)
 
         # Update properties based on selected points
         if len(self._selected_data) == 0:
@@ -543,8 +544,9 @@ class Points(Layer):
             raise ValueError("Mode not recognized")
 
         if not (mode == Mode.SELECT and old_mode == Mode.SELECT):
-            self.selected_data = []
-            self._set_highlight()
+            if self.dims.ndisplay == 2:
+                self.selected_data = []
+                self._set_highlight()
 
         self.status = str(mode)
         self._mode = mode

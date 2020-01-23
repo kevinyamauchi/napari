@@ -637,6 +637,30 @@ def test_size_with_3D_arrays():
     assert np.all(layer.size[0] == [0, 16, 16])
 
 
+def test_point_selection_2d_to_3d():
+    """Test transitioning a layer from 2d to 3d with points selected"""
+    shape = (10, 3)
+    np.random.seed(0)
+    data = 20 * np.random.random(shape)
+    data[:2, 0] = 0
+    layer = Points(data)
+
+    # change to 3D view with 2 points selected
+    selected_points = [0, 2]
+    layer.selected_data = selected_points
+    layer.dims.ndisplay = 3
+    assert np.all(layer.selected_data == selected_points)
+
+    # select different points
+    selected_points_2 = [1, 3]
+    layer.selected_data = selected_points_2
+    assert np.all(layer.selected_data == selected_points_2)
+
+    # change back to 2D, same points should be selected
+    layer.dims.ndisplay = 2
+    assert np.all(layer.selected_data == selected_points_2)
+
+
 def test_interaction_box():
     """Test the creation of the interaction box."""
     shape = (10, 2)
