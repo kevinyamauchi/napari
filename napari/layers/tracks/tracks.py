@@ -144,7 +144,10 @@ class Tracks(Layer):
 
         # set the data, properties and graph
         self.data = data
-        self.properties = properties or {}
+        if properties is None:
+            self.properties = {}
+        else:
+            self.properties = properties
         self.graph = graph or {}
 
         self.color_by = color_by
