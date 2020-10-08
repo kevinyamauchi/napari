@@ -66,6 +66,18 @@ def test_track_layer_properties():
     assert layer.properties == properties
 
 
+def test_track_layer_properties_dataframe():
+    """Test setting properties with a dataframe."""
+    data = np.zeros((100, 4))
+    data[:, 1] = np.arange(100)
+    properties_dict = {'time': data[:, 1]}
+    properties_dataframe = pd.DataFrame(properties_dict)
+    layer = Tracks(data, properties=properties_dataframe)
+    np.testing.assert_array_equal(
+        layer.properties['time'], properties_dict['time']
+    )
+
+
 def test_track_layer_graph():
     """Test track layer graph."""
     data = np.zeros((100, 4))
